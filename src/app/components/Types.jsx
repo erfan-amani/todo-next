@@ -3,7 +3,7 @@ import React from "react";
 const TodoTypes = () => {
   const isActive = false;
   return (
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-4 justify-center flex-shrink-0">
       <button
         className={`px-4 py-2 rounded-full capitalize ${
           isActive
