@@ -1,3 +1,5 @@
+import { getServerSession } from "next-auth";
+import Link from "next/link";
 import Single from "./Single";
 
 const fetchTodos = async () => {
@@ -14,7 +16,21 @@ const fetchTodos = async () => {
 };
 
 const TodoList = async () => {
+  const session = await getServerSession();
+
+  console.log({ serverSession: session });
   const list = await fetchTodos();
+
+  if (!session) {
+    return (
+      <div className="flex flex-col items-center space-y-3 flex-1 text-gray-700">
+        <p className="text-center">Login first to manage your tasks!</p>
+        <Link href="/auth" className="text-indigo-400 underline">
+          Login
+        </Link>
+      </div>
+    );
+  }
 
   if (!list.length) {
     return (
