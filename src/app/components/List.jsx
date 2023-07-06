@@ -1,13 +1,19 @@
 import { getServerSession } from "next-auth";
+import { headers } from "next/headers";
 import Link from "next/link";
 import Single from "./Single";
 
 const fetchTodos = async () => {
   try {
-    const response = await fetch("http://localhost:3001/api/todo", {
-      cache: "no-cache",
-      next: { tags: ["todos"] },
-    });
+    const activeType = headers().get("type");
+
+    const response = await fetch(
+      `http://localhost:3001/api/todo?type=${activeType}`,
+      {
+        cache: "no-cache",
+        next: { tags: ["todos"] },
+      }
+    );
 
     const data = await response.json();
 
@@ -18,7 +24,6 @@ const fetchTodos = async () => {
 const TodoList = async () => {
   const session = await getServerSession();
 
-  console.log({ serverSession: session });
   const list = await fetchTodos();
 
   if (!session) {

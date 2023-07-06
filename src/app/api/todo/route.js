@@ -1,16 +1,18 @@
 import Todo from "@/models/todo";
 import { connectToDB } from "@/utils/database";
-import { revalidatePath, revalidateTag } from "next/cache";
-import { cookies } from "next/headers";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 export const GET = async (request) => {
   try {
     await connectToDB();
 
-    console.log(cookies().getAll());
+    const type = request.nextUrl.searchParams.get("type");
+    const dbQuery = {};
+    if (type === "compeleted") dbQuery.done = true;
+    else if (type === "uncompeleted") dbQuery.done = false;
 
-    const data = await Todo.find({});
+    const data = await Todo.find(dbQuery);
 
     return NextResponse.json(data);
   } catch (error) {
