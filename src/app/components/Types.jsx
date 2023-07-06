@@ -1,36 +1,34 @@
+"use client";
+
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
+const TYPES = [
+  { name: "All", value: "all" },
+  { name: "Compeleted", value: "compeleted" },
+  { name: "Uncompeleted", value: "uncompeleted" },
+];
+
 const TodoTypes = () => {
-  const isActive = false;
+  const searchParams = useSearchParams();
+  const active = searchParams.get("type");
+
   return (
     <div className="flex gap-4 justify-center flex-shrink-0">
-      <button
-        className={`px-4 py-2 rounded-full capitalize ${
-          isActive
-            ? " bg-purple-400 shadow-sm text-neutral-100 dark:text-neutral-800 font-bold"
-            : "bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-neutral-400"
-        }`}
-      >
-        All
-      </button>{" "}
-      <button
-        className={`px-4 py-2 rounded-full capitalize ${
-          isActive
-            ? " bg-purple-400 shadow-sm text-neutral-100 dark:text-neutral-800 font-bold"
-            : "bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-neutral-400"
-        }`}
-      >
-        Compeleted
-      </button>{" "}
-      <button
-        className={`px-4 py-2 rounded-full capitalize ${
-          isActive
-            ? " bg-purple-400 shadow-sm text-neutral-100 dark:text-neutral-800 font-bold"
-            : "bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-neutral-400"
-        }`}
-      >
-        Uncompeleted
-      </button>
+      {TYPES.map((type) => (
+        <Link
+          href={`/?type=${type.value}`}
+          key={type.value}
+          className={`px-4 py-2 rounded-full capitalize ${
+            active === type.value
+              ? "bg-purple-400 dark:bg-purple-800 text-neutral-100 dark:text-neutral-200 font-bold shadow-sm"
+              : "bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-neutral-400"
+          }`}
+        >
+          {type.name}
+        </Link>
+      ))}
     </div>
   );
 };
