@@ -21,12 +21,11 @@ const Todo = ({ title, id, done }) => {
 
   return (
     <div
-      className={`flex items-center gap-4 bg-neutral-50 dark:bg-
-      gray-700 py-2 px-4 rounded-xl ${
+      className={`flex items-center gap-4 bg-neutral-50 dark:bg-gray-700 py-2 px-4 rounded-xl capitalize ${
         done
-          ? "text-gray-400 dark:text-neutral-500"
+          ? "text-gray-400 dark:text-neutral-500 line-through"
           : "text-gray-600 dark:text-neutral-300"
-      } capitalize ${done ? "line-through" : ""}`}
+      }`}
     >
       <button
         onClick={() => changeStatus(id)}
