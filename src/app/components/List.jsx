@@ -23,8 +23,10 @@ const TodoList = async () => {
 
   if (!session) {
     return (
-      <div className="flex flex-col items-center space-y-3 flex-1 text-gray-700">
-        <p className="text-center">Login first to manage your tasks!</p>
+      <div className="flex flex-col items-center space-y-3 flex-1 text-gray-700 mt-8">
+        <p className="text-center text-neutral-600 dark:text-neutral-400">
+          Login first to manage your tasks!
+        </p>
         <Link href="/auth" className="text-indigo-400 underline">
           Login
         </Link>

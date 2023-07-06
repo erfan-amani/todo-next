@@ -21,7 +21,11 @@ const ThemeToggle = () => {
 
   return (
     <button onClick={toggleTheme}>
-      {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+      {theme === "dark" ? (
+        <SunIcon className="fill-inherit" />
+      ) : (
+        <MoonIcon className="fill-inherit" />
+      )}
     </button>
   );
 };

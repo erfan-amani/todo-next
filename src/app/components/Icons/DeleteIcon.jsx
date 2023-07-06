@@ -1,10 +1,10 @@
-const DeleteIcon = () => {
+const DeleteIcon = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5 text-gray-500 hover:text-indigo-600 transition-colors duration-300"
       viewBox="0 0 20 20"
       fill="currentColor"
+      {...props}
     >
       <path
         fillRule="evenodd"

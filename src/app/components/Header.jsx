@@ -13,14 +13,17 @@ const Header = () => {
 
   return (
     <div className="flex items-center justify-between flex-shrink-0">
-      <Link href="/" className="font-medium text-xl text-neutral-800">
+      <Link
+        href="/"
+        className="font-medium text-xl text-neutral-800 dark:text-neutral-50"
+      >
         Todo
       </Link>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 fill-neutral-800 dark:fill-neutral-50">
         <ThemeToggle />
 
         <button onClick={signOutHandler}>
-          <SignOut />
+          <SignOut className="fill-inherit" />
         </button>
       </div>
     </div>

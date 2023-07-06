@@ -29,17 +29,17 @@ const NewTodo = () => {
       {isAuth ? (
         <form
           onSubmit={onSubmit}
-          className="relative flex bg-white px-4 py-2 rounded-xl w-full shadow-sm"
+          className="relative flex bg-neutral-50 dark:bg-gray-600 px-4 py-2 rounded-xl w-full shadow-sm"
         >
           <input
             type="text"
             name="todo"
-            className="flex-grow text-gray-700 outline-none pr-4 w-full"
+            className="flex-grow text-gray-700 dark:text-gray-100 outline-none pr-4 w-full bg-transparent"
             placeholder="Write here!"
           />
           <button
             type="submit"
-            className="bg-gray-300 py-1.5 px-3 rounded-xl text-gray-700 hover:bg-blue-200 active:ring-blue-4 font-medium"
+            className="bg-gray-300 py-1.5 px-3 rounded-xl text-gray-700 dark:text-neutral-50 dark:bg-gray-500 hover:bg-blue-200 active:ring-blue-4 font-medium"
           >
             Add
           </button>
@@ -54,7 +54,7 @@ const NewTodo = () => {
       ) : (
         <Link
           href="/auth"
-          className="block w-full text-center bg-gray-300 py-2 px-3 rounded-xl text-gray-700 hover:bg-blue-200 active:ring-blue-4 font-medium"
+          className="block w-full text-center bg-gray-300 dark:bg-gray-700 py-2 px-3 rounded-xl text-neutral-700 dark:text-neutral-50 hover:bg-blue-200 active:ring-blue-4 font-medium"
         >
           Login
         </Link>

@@ -30,7 +30,7 @@ const AuthUser = () => {
 
   return (
     <div className="m-auto flex flex-col gap-20 w-full max-w-[400px]">
-      <div className="flex flex-col items-center justify-center fill-neutral-700 text-neutral-700">
+      <div className="flex flex-col items-center justify-center fill-neutral-700 text-neutral-700 dark:fill-neutral-200 dark:text-neutral-200">
         <div>
           <UserRectangle width="40" height="40" fill="inherit" />
         </div>
@@ -45,7 +45,7 @@ const AuthUser = () => {
 
         <AuthInput label="Password" type="password" name="password" />
 
-        <button className="p-3 mt-4 bg-indigo-400 text-white w-full rounded-md">
+        <button className="p-3 mt-4 bg-indigo-400 text-white dark:text-neutral-800 w-full rounded-md">
           Login/Register
         </button>
       </form>

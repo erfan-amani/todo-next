@@ -21,9 +21,12 @@ const Todo = ({ title, id, done }) => {
 
   return (
     <div
-      className={`flex items-center gap-2 bg-neutral-50 py-2 px-4 rounded-xl text-gray-600 cursor-pointer capitalize ${
-        done ? "line-through" : ""
-      }`}
+      className={`flex items-center gap-4 bg-neutral-50 dark:bg-
+      gray-700 py-2 px-4 rounded-xl ${
+        done
+          ? "text-gray-400 dark:text-neutral-500"
+          : "text-gray-600 dark:text-neutral-300"
+      } capitalize ${done ? "line-through" : ""}`}
     >
       <button
         onClick={() => changeStatus(id)}
@@ -36,7 +39,7 @@ const Todo = ({ title, id, done }) => {
         <span>{title}</span>
       </button>
       <button onClick={() => deleteTodo(id)}>
-        <DeleteIcon />
+        <DeleteIcon className="h-5 w-5 text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition-colors duration-300" />
       </button>
     </div>
   );
