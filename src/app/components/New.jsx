@@ -54,7 +54,7 @@ const NewTodo = () => {
       ) : (
         <Link
           href="/auth"
-          className="w-full text-center bg-gray-300 py-2 px-3 rounded-xl text-gray-700 hover:bg-blue-200 active:ring-blue-4 font-medium"
+          className="block w-full text-center bg-gray-300 py-2 px-3 rounded-xl text-gray-700 hover:bg-blue-200 active:ring-blue-4 font-medium"
         >
           Login
         </Link>
