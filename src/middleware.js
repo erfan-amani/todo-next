@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request) {
-  const type = request.nextUrl.searchParams.get("type");
+  // const token = request.cookies.get("next-auth.session-token")?.value;
 
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("type", type);
+  // token && requestHeaders.set("Authorization", token);
 
   return NextResponse.next({ headers: requestHeaders });
 }

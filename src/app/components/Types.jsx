@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import React from "react";
 
 const TYPES = [
@@ -10,10 +7,7 @@ const TYPES = [
   { name: "Uncompeleted", value: "uncompeleted" },
 ];
 
-const TodoTypes = () => {
-  const searchParams = useSearchParams();
-  const active = searchParams.get("type");
-
+const TodoTypes = ({ active }) => {
   return (
     <div className="flex gap-4 justify-center flex-shrink-0">
       {TYPES.map((type) => (

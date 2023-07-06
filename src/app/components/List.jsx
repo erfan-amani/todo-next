@@ -1,15 +1,16 @@
 import { getServerSession } from "next-auth";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import Link from "next/link";
 import Single from "./Single";
 
-const fetchTodos = async () => {
+const fetchTodos = async (type) => {
   try {
-    const activeType = headers().get("type");
+    const token = cookies().get("next-auth.session-token")?.value;
 
     const response = await fetch(
-      `http://localhost:3001/api/todo?type=${activeType}`,
+      `http://localhost:3001/api/todo?type=${type}`,
       {
+        headers: { Authorization: token },
         cache: "no-cache",
         next: { tags: ["todos"] },
       }
@@ -21,10 +22,10 @@ const fetchTodos = async () => {
   } catch (error) {}
 };
 
-const TodoList = async () => {
+const TodoList = async ({ type }) => {
   const session = await getServerSession();
 
-  const list = await fetchTodos();
+  const list = await fetchTodos(type);
 
   if (!session) {
     return (
