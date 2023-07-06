@@ -2,11 +2,17 @@
 
 import UserRectangle from "@/app/components/Icons/UserRectangle";
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 import AuthInput from "./components/AuthInput";
 
 const AuthUser = () => {
   const session = useSession();
+  const router = useRouter();
+
+  if (session.status === "authenticated") {
+    router.replace("/");
+  }
 
   const onSubmit = async (event) => {
     event.preventDefault();
