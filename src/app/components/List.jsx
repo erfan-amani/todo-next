@@ -5,7 +5,7 @@ import Single from "./Single";
 
 const fetchTodos = async (type) => {
   try {
-    const authHeader = getAuthHeader();
+    const authHeader = await getAuthHeader();
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo${

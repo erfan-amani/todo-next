@@ -67,8 +67,7 @@ export const authOptions = {
 };
 
 export const getAuthHeader = async () => {
-  let token = cookies().get("next-auth.session-token")?.value;
-  token = cookies().get("__Secure-next-auth.session-token")?.value;
+  const token = await cookies().get(process.env.COOKIE_TOKEN_NAME)?.value;
 
   return { Authorization: `Bearer ${token}` };
 };
