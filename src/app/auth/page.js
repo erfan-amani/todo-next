@@ -8,6 +8,7 @@ import AuthInput from "./components/AuthInput";
 
 const AuthUser = () => {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
   const session = useSession();
   const router = useRouter();
 
@@ -21,6 +22,11 @@ const AuthUser = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
+    if (!email) return setError("Email can not be empty!");
+    if (!password) return setError("Password can not be empty!");
+
+    setLoading(true);
+
     const respons = await signIn("credentials", {
       redirect: false,
       email,
@@ -31,6 +37,8 @@ const AuthUser = () => {
     if (respons.error) {
       setError(respons.error);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -40,7 +48,6 @@ const AuthUser = () => {
           <UserRectangle width="40" height="40" fill="inherit" />
         </div>
         <h3 className="text-2xl font-bold text-inherit">LOGIN</h3>
-        {/* <h3 className="text-2xl font-bold text-inherit">REGISTER</h3> */}
       </div>
 
       <form
@@ -57,9 +64,15 @@ const AuthUser = () => {
 
         <AuthInput label="Password" type="password" name="password" />
 
-        <button className="p-3 mt-4 bg-indigo-400 text-white dark:text-neutral-800 w-full rounded-md">
-          Login/Register
-        </button>
+        {loading ? (
+          <div className="animate-pulse flex items-center justify-center cursor-default mt-2 w-full h-11 rounded-md bg-neutral-50 dark:bg-gray-700">
+            <span className="opacity-40 m-auto">Please wait...</span>
+          </div>
+        ) : (
+          <button className="p-3 mt-4 bg-indigo-400 text-white dark:text-neutral-800 w-full rounded-md">
+            Login/Register
+          </button>
+        )}
       </form>
     </div>
   );
