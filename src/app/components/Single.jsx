@@ -9,7 +9,7 @@ const Todo = ({ title, id, done }) => {
   const router = useRouter();
 
   const changeStatus = async (id) => {
-    await fetch(`http://localhost:3001/api/todo/${id}`, {
+    await fetch(`${process.env.BASE_URL}/api/todo/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     });
@@ -18,7 +18,7 @@ const Todo = ({ title, id, done }) => {
   };
 
   const deleteTodo = async (id) => {
-    await fetch(`http://localhost:3001/api/todo/${id}`, {
+    await fetch(`${process.env.BASE_URL}/api/todo/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });

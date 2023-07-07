@@ -18,7 +18,7 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         try {
-          let response = await fetch("http://localhost:3001/api/auth/login", {
+          let response = await fetch(`${process.env.BASE_URL}/api/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(credentials),
@@ -29,11 +29,14 @@ export const authOptions = {
           if (user) {
             return user;
           } else {
-            response = await fetch("http://localhost:3001/api/auth/register", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(credentials),
-            });
+            response = await fetch(
+              `${process.env.BASE_URL}/api/auth/register`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(credentials),
+              }
+            );
 
             user = await response.json();
 

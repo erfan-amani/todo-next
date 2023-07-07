@@ -17,7 +17,7 @@ const NewTodo = () => {
 
     if (!todo) return;
 
-    await fetch("http://localhost:3001/api/todo", {
+    await fetch(`${process.env.BASE_URL}/api/todo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: todo, user: session.data.user._id }),

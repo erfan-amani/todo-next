@@ -8,7 +8,7 @@ const fetchTodos = async (type) => {
     const authHeader = getAuthHeader();
 
     const response = await fetch(
-      `http://localhost:3001/api/todo${type ? "?type=" + type : ""}`,
+      `${process.env.BASE_URL}/api/todo${type ? "?type=" + type : ""}`,
       {
         headers: authHeader,
         cache: "no-cache",

@@ -24,7 +24,7 @@ const AuthUser = () => {
       redirect: true,
       email,
       password,
-      callbackUrl: "http://localhost:3001",
+      callbackUrl: process.env.BASE_URL,
     });
   };
 
