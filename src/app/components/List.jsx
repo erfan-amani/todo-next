@@ -28,11 +28,7 @@ const fetchTodos = async (type) => {
 const TodoList = async ({ type }) => {
   const session = await getServerSession();
 
-  const { data, error } = await fetchTodos(type);
-
-  if (error) {
-    throw new Error(error);
-  }
+  const { data, error } = !session ? {} : await fetchTodos(type);
 
   if (!session) {
     return (
@@ -45,6 +41,10 @@ const TodoList = async ({ type }) => {
         </Link>
       </div>
     );
+  }
+
+  if (error) {
+    throw new Error(error);
   }
 
   if (!data?.length) {
