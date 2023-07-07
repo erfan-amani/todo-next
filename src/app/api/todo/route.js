@@ -8,8 +8,16 @@ export const GET = async (request) => {
   try {
     await connectToDB();
 
+    const token = await getToken({
+      req: request,
+    });
+
+    if (!token) {
+      return NextResponse.json({ error: "Not authorized!" }, { status: 400 });
+    }
+
     const type = request.nextUrl.searchParams.get("type");
-    const dbQuery = {};
+    const dbQuery = { user: token._id };
     if (type === "compeleted") dbQuery.done = true;
     else if (type === "uncompeleted") dbQuery.done = false;
 

@@ -1,4 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import { cookies } from "next/headers";
 
 export const authOptions = {
   session: {
@@ -57,4 +58,10 @@ export const authOptions = {
       return session;
     },
   },
+};
+
+export const getAuthHeader = () => {
+  const token = cookies().get("next-auth.session-token")?.value;
+
+  return { Authorization: `Bearer ${token}` };
 };

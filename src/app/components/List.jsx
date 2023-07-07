@@ -1,18 +1,19 @@
+import { getAuthHeader } from "@/lib/auth";
 import { getServerSession } from "next-auth";
-import { headers, cookies } from "next/headers";
 import Link from "next/link";
 import Single from "./Single";
 
 const fetchTodos = async (type) => {
   try {
-    const token = cookies().get("next-auth.session-token")?.value;
+    const authHeader = getAuthHeader();
 
     const response = await fetch(
-      `http://localhost:3001/api/todo?type=${type}`,
+      `http://localhost:3001/api/todo${type ? "?type=" + type : ""}`,
       {
-        headers: { Authorization: token },
+        headers: authHeader,
         cache: "no-cache",
         next: { tags: ["todos"] },
+        credentials: "include",
       }
     );
 
@@ -46,7 +47,7 @@ const TodoList = async ({ type }) => {
     );
   }
 
-  if (!data.length) {
+  if (!data?.length) {
     return (
       <div className="space-y-3 flex-1 text-gray-700">
         <p className="text-center">No task found!</p>
