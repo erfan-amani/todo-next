@@ -10,22 +10,25 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.statics.findByCredential = async function (email, password) {
-  const user = await User.findOne({ email });
+  try {
+    const user = await User.findOne({ email });
 
-  if (!user) {
-    // not throw error becuse if user not exist we go for registeration
-    return null;
+    if (!user) {
+      // not throw error becuse if user not exist we go for registeration
+      return { user: null };
+    } else {
+      // check for password
+      const isMatched = await bcrypt.compare(password, user.password);
+
+      if (!isMatched) {
+        return { error: { message: "Password not matched!", status: 422 } };
+      }
+
+      return { user };
+    }
+  } catch (error) {
+    return { error: { message: error?.message || error, status: 400 } };
   }
-
-  const isMatched = await bcrypt.compare(password, user.password);
-
-  if (!isMatched) {
-    const error = new Error("Password not matched!");
-    error.status = 400;
-    throw error;
-  }
-
-  return user;
 };
 
 userSchema.pre("save", async function (next) {

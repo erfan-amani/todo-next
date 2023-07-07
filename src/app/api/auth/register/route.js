@@ -13,9 +13,8 @@ export const POST = async (request) => {
 
     console.log(`user registered in: id ${user._id}`);
 
-    return NextResponse.json(user, { status: 201 });
+    return NextResponse.json({ user }, { status: 201 });
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ error }, { status: 400 });
   }
 };

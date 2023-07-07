@@ -18,7 +18,7 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         try {
-          let response = await fetch(
+          const loginResponse = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`,
             {
               method: "POST",
@@ -27,12 +27,16 @@ export const authOptions = {
             }
           );
 
-          let user = await response.json();
+          const loginData = await loginResponse.json();
 
-          if (user) {
-            return user;
+          if (loginData.error) {
+            throw loginData.error;
+          }
+
+          if (loginData.user) {
+            return loginData.user;
           } else {
-            response = await fetch(
+            const registerResponse = await fetch(
               `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/register`,
               {
                 method: "POST",
@@ -41,12 +45,15 @@ export const authOptions = {
               }
             );
 
-            user = await response.json();
+            const registerData = await registerResponse.json();
 
-            return user;
+            return registerData.user;
           }
-        } catch (err) {
-          console.log(err);
+        } catch (error) {
+          const errorResponse =
+            typeof error === "string" ? { message: error } : error;
+
+          return Promise.reject(errorResponse);
         }
       },
     }),
