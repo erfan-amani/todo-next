@@ -1,5 +1,4 @@
 import Todo from "@/models/todo";
-import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 export const PUT = async (request, { params }) => {
@@ -8,8 +7,6 @@ export const PUT = async (request, { params }) => {
     const todo = await Todo.findById(id);
     todo.done = !todo.done;
     await todo.save();
-
-    revalidateTag("todos");
 
     return NextResponse.json(todo);
   } catch (error) {
@@ -21,8 +18,6 @@ export const DELETE = async (request, { params }) => {
   try {
     const id = params?.id;
     const todo = await Todo.findByIdAndDelete(id);
-
-    revalidateTag("todos");
 
     return NextResponse.json(todo);
   } catch (error) {

@@ -3,13 +3,18 @@
 import SquareIcon from "./Icons/SquareIcon";
 import CheckedIcon from "./Icons/CheckedIcon";
 import DeleteIcon from "./Icons/DeleteIcon";
+import { useRouter } from "next/navigation";
 
 const Todo = ({ title, id, done }) => {
+  const router = useRouter();
+
   const changeStatus = async (id) => {
     await fetch(`http://localhost:3001/api/todo/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     });
+
+    router.refresh();
   };
 
   const deleteTodo = async (id) => {
@@ -17,6 +22,8 @@ const Todo = ({ title, id, done }) => {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
+
+    router.refresh();
   };
 
   return (

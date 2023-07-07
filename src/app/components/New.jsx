@@ -2,8 +2,10 @@
 
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const NewTodo = () => {
+  const router = useRouter();
   const session = useSession();
   const isAuthLoading = session.status === "loading";
   const isAuth = session.status === "authenticated";
@@ -20,6 +22,8 @@ const NewTodo = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: todo, user: session.data.user._id }),
     });
+
+    router.refresh();
 
     event.target.todo.value = "";
   };

@@ -1,5 +1,6 @@
 import Todo from "@/models/todo";
 import { connectToDB } from "@/utils/database";
+import { getToken } from "next-auth/jwt";
 import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
@@ -28,8 +29,6 @@ export const POST = async (request) => {
 
     const todo = new Todo({ title, user });
     await todo.save();
-
-    revalidateTag("todos");
 
     return NextResponse.json(todo, { status: 201 });
   } catch (error) {
