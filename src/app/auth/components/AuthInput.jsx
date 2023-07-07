@@ -24,7 +24,11 @@ const AuthInput = ({ label, type = "text", name }) => {
             type="button"
             onClick={() => setHide((prev) => !prev)}
           >
-            {hide ? <EyeClosed fill="#444" /> : <EyeOpen fill="#444" />}
+            {hide ? (
+              <EyeClosed className="fill-gray-600 dark:fill-gray-300" />
+            ) : (
+              <EyeOpen className="fill-gray-600 dark:fill-gray-300" />
+            )}
           </button>
         )}
       </div>
