@@ -18,14 +18,20 @@ const fetchTodos = async (type) => {
 
     const data = await response.json();
 
-    return data;
-  } catch (error) {}
+    return { data };
+  } catch (error) {
+    return { error };
+  }
 };
 
 const TodoList = async ({ type }) => {
   const session = await getServerSession();
 
-  const list = await fetchTodos(type);
+  const { data, error } = await fetchTodos(type);
+
+  if (error) {
+    throw new Error(error);
+  }
 
   if (!session) {
     return (
@@ -40,7 +46,7 @@ const TodoList = async ({ type }) => {
     );
   }
 
-  if (!list.length) {
+  if (!data.length) {
     return (
       <div className="space-y-3 flex-1 text-gray-700">
         <p className="text-center">No task found!</p>
@@ -50,7 +56,7 @@ const TodoList = async ({ type }) => {
 
   return (
     <div className="flex flex-col gap-4 h-full overflow-y-auto">
-      {list.map((todo) => (
+      {data.map((todo) => (
         <Single
           key={todo._id}
           title={todo.title}
