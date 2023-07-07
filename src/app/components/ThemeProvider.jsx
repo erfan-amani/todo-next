@@ -12,7 +12,11 @@ const Provider = ({ children }) => {
 
   if (!mounted) return <>{children}</>;
 
-  return <ThemeProvider attribute="class">{children}</ThemeProvider>;
+  return (
+    <ThemeProvider attribute="class" defaultTheme="light">
+      {children}
+    </ThemeProvider>
+  );
 };
 
 export default Provider;
