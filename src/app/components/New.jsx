@@ -3,8 +3,10 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const NewTodo = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const session = useSession();
   const isAuthLoading = session.status === "loading";
@@ -17,6 +19,8 @@ const NewTodo = () => {
 
     if (!todo) return;
 
+    setLoading(true);
+
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -24,16 +28,22 @@ const NewTodo = () => {
     });
 
     router.refresh();
-
+    setLoading(false);
     event.target.todo.value = "";
   };
 
+  const isLoading = loading || isAuthLoading;
+
   return (
     <div className="flex-shrink-0">
-      {isAuth ? (
+      {isLoading ? (
+        <div className="animate-pulse flex items-center justify-center cursor-default mt-2 w-full h-11 rounded-md bg-neutral-50 dark:bg-gray-700">
+          <span className="opacity-40 m-auto">Please wait...</span>
+        </div>
+      ) : isAuth ? (
         <form
           onSubmit={onSubmit}
-          className="relative flex bg-neutral-50 dark:bg-gray-600 px-4 py-2 rounded-xl w-full shadow-sm"
+          className="relative flex bg-neutral-50 dark:bg-gray-700 px-4 py-2 rounded-xl w-full shadow-sm"
         >
           <input
             type="text"
@@ -43,18 +53,11 @@ const NewTodo = () => {
           />
           <button
             type="submit"
-            className="bg-gray-300 py-1.5 px-3 rounded-xl text-gray-700 dark:text-neutral-50 dark:bg-gray-500 hover:bg-blue-200 active:ring-blue-4 font-medium"
+            className="bg-gray-300 py-1.5 px-3 rounded-xl text-gray-700 dark:text-neutral-50 dark:bg-gray-600 hover:bg-blue-200 active:ring-blue-4 font-medium"
           >
             Add
           </button>
         </form>
-      ) : isAuthLoading ? (
-        <button
-          disabled
-          className="w-full text-center bg-gray-300 py-2 px-3 rounded-xl text-gray-700 hover:bg-blue-200 active:ring-blue-4 font-medium"
-        >
-          Please wait!
-        </button>
       ) : (
         <Link
           href="/auth"
