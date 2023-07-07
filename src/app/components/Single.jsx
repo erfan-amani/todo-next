@@ -4,26 +4,38 @@ import SquareIcon from "./Icons/SquareIcon";
 import CheckedIcon from "./Icons/CheckedIcon";
 import DeleteIcon from "./Icons/DeleteIcon";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const Todo = ({ title, id, done }) => {
+  const [loading, setLoading] = useState(done);
   const router = useRouter();
 
   const changeStatus = async (id) => {
+    if (loading) return;
+
+    setLoading(true);
+
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     });
 
     router.refresh();
+    setLoading(false);
   };
 
   const deleteTodo = async (id) => {
+    if (loading) return;
+
+    setLoading(true);
+
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
 
     router.refresh();
+    setLoading(false);
   };
 
   return (
