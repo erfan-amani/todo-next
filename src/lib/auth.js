@@ -18,11 +18,14 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         try {
-          let response = await fetch(`${process.env.BASE_URL}/api/auth/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(credentials),
-          });
+          let response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(credentials),
+            }
+          );
 
           let user = await response.json();
 
@@ -30,7 +33,7 @@ export const authOptions = {
             return user;
           } else {
             response = await fetch(
-              `${process.env.BASE_URL}/api/auth/register`,
+              `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/register`,
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

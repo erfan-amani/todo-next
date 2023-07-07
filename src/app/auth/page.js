@@ -20,12 +20,16 @@ const AuthUser = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    signIn("credentials", {
-      redirect: true,
-      email,
-      password,
-      callbackUrl: process.env.BASE_URL,
-    });
+    try {
+      signIn("credentials", {
+        redirect: true,
+        email,
+        password,
+        callbackUrl: process.env.NEXT_PUBLIC_BASE_URL,
+      });
+    } catch (error) {
+      console.log({ signInError: error });
+    }
   };
 
   return (
